@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/homescreen"
+    android:scrollbars="none"
+    tools:context=".SongListActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bhakti_geet"
+                android:fontFamily="@font/lato_bold"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/back_btn"
+                android:layout_marginStart="20dp"/>
+        </RelativeLayout>
+
+
+
+
+        <RelativeLayout
+            android:layout_width="330dp"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:background="@drawable/nue_big_bg">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/logo"
+                    android:src="@drawable/mandir"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ganesh_ji"
+                android:fontFamily="@font/lato_bold"
+                android:textSize="40sp"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/white"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            tools:listitem="@layout/list_card"
+            android:overScrollMode="ifContentScrolls"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/recycler"/>
+
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

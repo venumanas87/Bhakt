@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "654378225813",
+    "project_id": "bhakt-8d60d",
+    "storage_bucket": "bhakt-8d60d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654378225813:android:4ba444f501c63ca7c20b9c",
+        "android_client_info": {
+          "package_name": "xyz.v.bhakt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654378225813-6evk93duh41eircjqlrkl5r381ca5pjv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "xyz.v.bhakt",
+            "certificate_hash": "01d4d503c710090f4a31972058a4dd14f023b370"
+          }
+        },
+        {
+          "client_id": "654378225813-m7bboqibkaq6nvjspe90tnicrsjj4941.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1vNB0IWZY-bFLcnVdhvmBdsj_yLyZKMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "654378225813-m7bboqibkaq6nvjspe90tnicrsjj4941.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

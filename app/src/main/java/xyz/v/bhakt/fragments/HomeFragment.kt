@@ -1,31 +1,23 @@
 package xyz.v.bhakt.fragments
 
-import android.content.Intent
-import android.media.AudioAttributes
-import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import io.ak1.BubbleTabBar
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import xyz.v.bhakt.R
-import xyz.v.bhakt.SplashActivity
 import xyz.v.bhakt.adapter.RcHomeAdapter
 import xyz.v.bhakt.models.HomeRc
 import xyz.v.bhakt.utils.Constants.Companion.mandirUrl
@@ -33,29 +25,25 @@ import xyz.v.bhakt.utils.Constants.Companion.mantraUrl
 import xyz.v.bhakt.utils.Constants.Companion.panchangUrl
 import xyz.v.bhakt.utils.Resource
 import xyz.v.bhakt.viewmodel.NetworkViewModel
-import java.lang.Exception
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
 
-    lateinit var volumeIV:ImageView
-    lateinit var mantraIV:ImageView
-    lateinit var mandirIV:ImageView
-    lateinit var panchangIV:ImageView
-    lateinit var progressBar: ProgressBar
-    lateinit var quoteTV: TextView
-    var urlQuote = ""
-    private val player = MediaPlayer()
-    lateinit var networkViewModel: NetworkViewModel
-    lateinit var recyclerView: RecyclerView
-    var storageRef = Firebase.storage.reference
-    val homeRef = storageRef.child("home")
+    private lateinit var volumeIV:ImageView
+    private lateinit var mantraIV:ImageView
+    private lateinit var mandirIV:ImageView
+    private lateinit var panchangIV:ImageView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var quoteTV: TextView
+    private var urlQuote = ""
+    private lateinit var player: MediaPlayer
+    private lateinit var networkViewModel: NetworkViewModel
+    private lateinit var recyclerView: RecyclerView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        player = MediaPlayer()
     }
 
     override fun onCreateView(
@@ -74,7 +62,9 @@ class HomeFragment : Fragment() {
         networkViewModel = ViewModelProvider(this)[NetworkViewModel::class.java]
         setupListeners()
         setObservers()
-        networkViewModel.fetchQuote()
+        lifecycleScope.launch(Dispatchers.IO) {
+            networkViewModel.fetchQuote()
+        }
         setUpRecyclerMenu()
         volumeIV.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO){
@@ -139,16 +129,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun initPlayer(url: String) {
-        urlQuote = url
-        lifecycleScope.launch(Dispatchers.IO){
-            val uri: Uri = Uri.parse(url)
-            player.setAudioAttributes(
-                AudioAttributes.Builder()
-                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .build())
-            player.setDataSource(requireContext(), uri)
-            player.prepare()
+        try {
+            urlQuote = url
+            player.let {
+                val uri: Uri = Uri.parse(url)
+                player.setDataSource(requireContext(), uri)
+                player.prepareAsync()
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
         }
+
     }
 
 
@@ -162,9 +153,17 @@ class HomeFragment : Fragment() {
 
         player.setOnCompletionListener {
             volumeIV.setImageResource(R.drawable.ic_baseline_volume_up_24)
+            player.stop()
+            player.reset()
+            networkViewModel.fetchQuote()
         }
 
-        player.setOnBufferingUpdateListener { mp, percent ->
+        player.setOnErrorListener { mp, what, extra ->
+            progressBar.visibility = View.GONE
+            true
+        }
+
+        player.setOnBufferingUpdateListener { _, percent ->
             if (percent>=100){
                 progressBar.visibility = View.GONE
             }else{
@@ -191,4 +190,6 @@ class HomeFragment : Fragment() {
             println(e.toString())
         }
     }
+
+
 }

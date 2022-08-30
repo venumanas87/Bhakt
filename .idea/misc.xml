@@ -5,13 +5,20 @@
       <map>
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.12604166666666666" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/drawable/gradient.xml" value="0.21574074074074073" />
+        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/drawable/gradient_wtb.xml" value="0.111" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/drawable/homescreen.xml" value="0.1105" />
+        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/drawable/player_thumb.xml" value="0.111" />
+        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/drawable/seek_gradient.xml" value="0.108" />
+        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/drawable/seek_progress.xml" value="0.111" />
+        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/drawable/top_round_corner.xml" value="0.108" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/activity_song_list.xml" value="0.19834710743801653" />
+        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/activity_song_list.xml" value="0.2" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/activity_spalsh.xml" value="0.19010416666666666" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/fragment_home.xml" value="0.19" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/list_card.xml" value="0.22447916666666667" />
+        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/player_sheet.xml" value="0.25" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/rc_home_card.xml" value="0.33" />
+        <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/layout/shimmer_list_card.xml" value="0.2078125" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/menu/bottomanv.xml" value="0.22447916666666667" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1105" />
         <entry key="..\:/Venu/projects/Bhakt/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.12604166666666666" />

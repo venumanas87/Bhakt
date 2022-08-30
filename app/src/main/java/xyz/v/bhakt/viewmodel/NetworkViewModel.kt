@@ -21,10 +21,11 @@ class NetworkViewModel: ViewModel() {
         println("venu fetch")
         db.collection("data").get().addOnSuccessListener { doc->
             if (doc!=null) {
-                val d = doc.toList().random()
+                val rand = Random.nextInt(doc.size())
+                val d = doc.toList()[rand]
                 val gita = d.toObject<Gita>()
                 quotesLiveData.postValue(Resource.Success(data = gita))
-                println("venuu data posted ${gita.quote}")
+                println("venuu data posted ${gita.quote} ${doc.size()}")
             }else
                 println("empty doc venu")
         }.addOnFailureListener {

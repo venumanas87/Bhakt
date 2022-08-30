@@ -35,4 +35,23 @@
 
 
 
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/coordinator"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bubbleTabBar">
+
+        <include
+            android:id="@+id/player_sheet"
+            layout="@layout/player_sheet"/>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

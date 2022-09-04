@@ -1,13 +1,17 @@
 package xyz.v.bhakt.fragments
 
+import android.content.Context
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -27,23 +31,30 @@ import xyz.v.bhakt.utils.Resource
 import xyz.v.bhakt.viewmodel.NetworkViewModel
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
 
     private lateinit var volumeIV:ImageView
     private lateinit var mantraIV:ImageView
     private lateinit var mandirIV:ImageView
     private lateinit var panchangIV:ImageView
-    private lateinit var progressBar: ProgressBar
     private lateinit var quoteTV: TextView
+    private lateinit var audioRv: RelativeLayout
     private var urlQuote = ""
-    private lateinit var player: MediaPlayer
+    lateinit var player: MediaPlayer
     private lateinit var networkViewModel: NetworkViewModel
     private lateinit var recyclerView: RecyclerView
+    private lateinit var expandAnim:Animation
+    private lateinit var shrinkAnim:Animation
+    private var wasPlaying:Boolean = false
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         player = MediaPlayer()
+        expandAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.expand_in)
+        shrinkAnim = AnimationUtils.loadAnimation(requireContext(),R.anim.shrink)
+
     }
 
     override fun onCreateView(
@@ -52,12 +63,13 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
         volumeIV = view.findViewById(R.id.vol_iv)
         mandirIV = view.findViewById(R.id.mandirIv)
         mantraIV = view.findViewById(R.id.mantraIv)
         panchangIV = view.findViewById(R.id.panchangIv)
-        progressBar = view.findViewById(R.id.progress_circular)
         quoteTV = view.findViewById(R.id.quote_tv)
+        audioRv = view.findViewById(R.id.audiorv)
         recyclerView = view.findViewById(R.id.recycler)
         networkViewModel = ViewModelProvider(this)[NetworkViewModel::class.java]
         setupListeners()
@@ -94,18 +106,6 @@ class HomeFragment : Fragment() {
         al.add(HomeRc("Durga Mata","https://2.bp.blogspot.com/-r5rETjiJjpQ/XMiZ8hPIByI/AAAAAAAAAKI/9HjADGfKzM4psodonacO9QbparDkyYmaACLcBGAs/s400/Durga%2BMaa%2BImages%2BDownload%2BHd.jpg"))
         al.add(HomeRc("Ganesh Ji","https://www.bhaktiphotos.com/wp-content/uploads/2020/12/First-God-Ganesh-Ji-Maharaj-hd-Wallpaper.jpg"))
         al.add(HomeRc("Hanuman Ji","https://www.bhaktiphotos.com/wp-content/uploads/2018/04/Mahabali-Veer-Hanuman-Bajrangbali-Ki.jpg"))
-/*
-        homeRef.listAll().addOnSuccessListener { v->
-            println("success venu" + v.items.size)
-            for (i in 0 until v.items.size){
-                v.items[i].downloadUrl.addOnCompleteListener {
-                    if (it.isSuccessful){
-                        al.add(HomeRc(v.items[i].name.split(".")[0],it.result.toString()))
-                        println(it.result.toString() + " venu")
-                        recyclerView.adapter?.notifyDataSetChanged()
-                    }
-                }
-            }*/
 
         recyclerView.adapter = RcHomeAdapter(al)
         }
@@ -123,6 +123,8 @@ class HomeFragment : Fragment() {
                     Snackbar.make(requireView(),"Error Loading Data",Snackbar.LENGTH_SHORT).show()
                 }
                 is Resource.Loading ->{
+                    audioRv.startAnimation(shrinkAnim)
+                    audioRv.visibility = View.GONE
                 }
             }
         }
@@ -131,9 +133,9 @@ class HomeFragment : Fragment() {
     private fun initPlayer(url: String) {
         try {
             urlQuote = url
-            player.let {
-                val uri: Uri = Uri.parse(url)
-                player.setDataSource(requireContext(), uri)
+            val uri: Uri = Uri.parse(url)
+            context?.let {
+                player.setDataSource(it, uri)
                 player.prepareAsync()
             }
         }catch (e:Exception){
@@ -148,48 +150,50 @@ class HomeFragment : Fragment() {
 
 
         player.setOnPreparedListener {
-            progressBar.visibility = View.GONE
+            audioRv.visibility = View.VISIBLE
+            audioRv.startAnimation(expandAnim)
         }
 
         player.setOnCompletionListener {
-            volumeIV.setImageResource(R.drawable.ic_baseline_volume_up_24)
+            volumeIV.setImageResource(R.drawable.speak)
             player.stop()
             player.reset()
             networkViewModel.fetchQuote()
         }
-
-        player.setOnErrorListener { mp, what, extra ->
-            progressBar.visibility = View.GONE
-            true
-        }
-
-        player.setOnBufferingUpdateListener { _, percent ->
-            if (percent>=100){
-                progressBar.visibility = View.GONE
-            }else{
-                progressBar.visibility = View.VISIBLE
-            }
-        }
     }
-    
-    
-    
 
 
     private fun playAudio(){
         try {
             if (player.isPlaying){
                 player.pause()
-                volumeIV.setImageResource(R.drawable.ic_baseline_volume_up_24)
+                volumeIV.setImageResource(R.drawable.speak)
             }else{
-                volumeIV.setImageResource(R.drawable.ic_baseline_volume_off_24)
                 player.start()
+                volumeIV.setImageResource(R.drawable.ic_baseline_volume_off_24)
 
             }
         } catch (e: Exception) {
             println(e.toString())
         }
     }
+
+
+    override fun onPause() {
+        super.onPause()
+        player.pause()
+        Glide.with(this)
+            .load(R.drawable.speak)
+            .into(volumeIV)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        player.reset()
+        player.release()
+    }
+
+
 
 
 }

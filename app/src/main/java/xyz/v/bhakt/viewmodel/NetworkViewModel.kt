@@ -16,6 +16,7 @@ class NetworkViewModel: ViewModel() {
     var quotesLiveData:MutableLiveData<Resource<Gita>> = MutableLiveData()
     var ganeshSongLiveData:MutableLiveData<Resource<List<Song>>> = MutableLiveData()
 
+
     fun fetchQuote(){
         quotesLiveData.postValue(Resource.Loading())
         println("venu fetch")

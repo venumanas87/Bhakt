@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:padding="5dp"
+    android:id="@+id/mainRv"
     android:layout_marginHorizontal="10dp"
     android:background="@drawable/list_bg">
 
@@ -27,7 +28,7 @@
             android:textSize="16sp"
             android:ellipsize="end"
             android:id="@+id/songNameTv"
-            android:textColor="@color/white"
+            android:textColor="#CCFFFFFF"
             android:maxLines="1"/>
 
         <TextView
@@ -38,7 +39,7 @@
             android:ellipsize="end"
             android:id="@+id/singerNameTv"
             android:layout_marginTop="10dp"
-            android:textColor="@color/author_name_pink"
+            android:textColor="#66FFFFFF"
             android:maxLines="1"/>
 
     </LinearLayout>

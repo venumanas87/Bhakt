@@ -1,109 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
-    android:orientation="vertical"
-    android:background="@drawable/bottom_sheet_bg"
+    android:background="@drawable/top_round_corner"
+    android:backgroundTint="@color/purple_200"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    app:behavior_peekHeight="160dp">
-
-    <RelativeLayout
+    app:behavior_peekHeight="160dp"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
         >
 
-        <View
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0.6"
-            android:background="@drawable/top_round_corner"
-            android:backgroundTint="@color/purple_200" />
+            android:layout_height="160dp"
+            >
 
-        <View
-            android:id="@+id/puller"
-            android:layout_width="50dp"
-            android:layout_height="6dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/seek_gradient" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.9"
+                android:background="@drawable/top_round_corner"
+                android:backgroundTint="@color/purple_200" />
+
+            <View
+                android:id="@+id/puller"
+                android:layout_width="50dp"
+                android:layout_height="6dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/seek_gradient" />
 
 
-        <SeekBar
-            android:id="@+id/seekBar"
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/puller"
+                android:layout_marginTop="20dp"
+                android:maxHeight="5dp"
+                android:progressDrawable="@drawable/seek_progress"
+                android:splitTrack="false"
+                android:thumb="@drawable/player_thumb"
+                />
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Maha Aarti"
+                    android:maxWidth="160dp"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/purple_500"
+                    android:id="@+id/name_tv"
+                    android:fontFamily="@font/lato_bold"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mixed"
+                    android:id="@+id/artist_tv"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="20dp"
+                >
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/backwards_ico"
+                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/backwardsIv"/>
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/play_ico"
+                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/play_pause_iv"/>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/forwards_ico"
+                    android:layout_marginHorizontal="10dp"
+                    android:id="@+id/forwardsIv"/>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxHeight="10dp"
-            android:layout_below="@id/puller"
             android:layout_marginTop="20dp"
-            android:splitTrack="false"
-            android:thumb="@drawable/player_thumb"
-            android:progressDrawable="@drawable/seek_progress"
-            android:thumbOffset="2dp" />
+            tools:listitem="@layout/list_card"
+            android:overScrollMode="ifContentScrolls"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/recycler"/>
 
 
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginStart="10dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Maha Aarti"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/purple_500"
-                android:fontFamily="@font/lato_bold"
-                android:textSize="20sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mixed"
-                android:textColor="@color/white"
-                android:fontFamily="@font/lato"
-                android:textSize="12sp"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="20dp"
-            >
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/backwards_ico"
-                android:layout_marginHorizontal="10dp"
-                android:id="@+id/backwardsIv"/>
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/play_ico"
-                android:layout_marginHorizontal="10dp"
-                android:id="@+id/play_pause_iv"/>
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/forwards_ico"
-                android:layout_marginHorizontal="10dp"
-                android:id="@+id/forwardsIv"/>
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

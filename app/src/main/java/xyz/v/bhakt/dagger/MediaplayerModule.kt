@@ -12,8 +12,8 @@ import javax.inject.Singleton
 class MediaplayerModule {
     @Singleton
     @Provides
-    fun providemediaPlayer():MediaPlayer = MediaPlayer().also {
-        it.setAudioAttributes(
+    fun providemediaPlayer():MediaPlayer = MediaPlayer().apply {
+        setAudioAttributes(
             AudioAttributes.Builder()
                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                 .build())

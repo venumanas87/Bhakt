@@ -17,6 +17,8 @@ class Constants {
         const val mandirUrl = "https://yourimageshare.com/ib/ddFqEFUj31.png"
         const val mantraUrl = "https://yourimageshare.com/ib/MN4EHOaWNU.png"
         const val panchangUrl = "https://yourimageshare.com/ib/4mFq6LcyR3.png"
+        const val SONG = "SONGOBJ"
+        const val pref_name:String = "MYDB73899"
 
 
          fun Activity.makeStatusBarTransparent() {

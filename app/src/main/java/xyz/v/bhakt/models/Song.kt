@@ -1,7 +1,7 @@
 package xyz.v.bhakt.models
 
 data class Song(
-    val singerNAme:String="",
+    val singerName:String="",
     val name:String="",
     val url:String=""
 )

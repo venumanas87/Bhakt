@@ -38,15 +38,16 @@
         app:layout_constraintEnd_toEndOf="@id/blurcv"
         app:layout_constraintBottom_toTopOf="@id/blurcv"
         android:padding="5dp"
+        android:visibility="gone"
         android:background="@drawable/bg_blur_round"
         android:layout_margin="15dp"
         android:id="@+id/audiorv"
         >
-        <ProgressBar
+        <!--<ProgressBar
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/progress_circular"
-            android:indeterminateTint="@color/white"/>
+            android:indeterminateTint="@color/white"/>-->
 
         <ImageView
             android:id="@+id/vol_iv"
@@ -54,7 +55,7 @@
             android:layout_height="20dp"
             android:layout_centerInParent="true"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_baseline_volume_up_24"
+            android:src="@drawable/speak"
             app:tint="@color/white" />
 
     </RelativeLayout>
